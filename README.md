@@ -7,11 +7,9 @@ npm install the-only-react-tooltip
 ```
 
 ## Usage
-
-## Usage
 **Using NPM**
 
-1 . Import the-only-react-tooltip after installation
+1 . Import `the-only-react-tooltip` after installation
 
 ```js
 import Tooltip from 'the-only-react-tooltip'
@@ -22,5 +20,12 @@ import Tooltip from 'the-only-react-tooltip'
 <Tooltip body={"I'll be shown on hover of YourReactComponent"}>
   <YourReactComponent ... />
 </Tooltip>
-<p data-tip="hello world">Tooltip</p>
 ```
+
+## License
+
+MIT
+
+## Maintainers
+
+[kgrillis](https://github.com/kgrillis)
