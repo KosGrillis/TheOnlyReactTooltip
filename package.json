@@ -41,5 +41,8 @@
     "react": "16.x",
     "react-dom": "16.x"
   },
-  "typings": "dist/index"
+  "typings": "dist/index",
+  "dependencies": {
+    "tslib": "^1.10.0"
+  }
 }
