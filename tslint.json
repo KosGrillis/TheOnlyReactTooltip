@@ -1,0 +1,67 @@
+{
+  "extends": ["tslint-react", "tslint-config-airbnb", "tslint-config-prettier"],
+  "linterOptions": {
+    "ignoreDefinitionFiles": false,
+    "exclude": ["config/**/*.js", "node_modules/**/*.ts", "coverage/lcov-report/*.js"]
+  },
+  "rules": {
+    "import-name": false,
+    "max-line-length": [
+      false,
+      {
+        "limit": 100,
+        "ignore-pattern": "http"
+      }
+    ],
+    "object-literal-sort-keys": false,
+    "ordered-imports": [
+      true,
+      {
+        "import-sources-order": "case-insensitive",
+        "named-imports-order": "case-insensitive",
+        "grouped-imports": true,
+        "groups": [
+          {
+            "name": "absolute (within console-ui)",
+            "match": "^@/",
+            "order": 1
+          },
+          {
+            "name": "relative: parent directory",
+            "match": "^[.][.]",
+            "order": 2
+          },
+          {
+            "name": "relative: current directory",
+            "match": "^[.]",
+            "order": 3
+          },
+          {
+            "name": "default/fallback",
+            "match": ".*",
+            "order": 0
+          }
+        ]
+      }
+    ],
+    "jsx-boolean-value": false,
+    "semicolon": [true, "never"],
+    "variable-name": [true, "check-format", "ban-keywords", "allow-pascal-case", "allow-leading-underscore"],
+    "jsx-no-lambda": [false],
+    "trailing-comma": [
+      true,
+      {
+        "multiline": {
+          "objects": "always",
+          "arrays": "always",
+          "functions": "always",
+          "typeLiterals": "ignore"
+        },
+        "esSpecCompliant": true
+      }
+    ],
+    "arrow-parens": true,
+    "ter-arrow-parens": false,
+    "function-name": [false]
+  }
+}
