@@ -5,6 +5,20 @@ Why does every React tooltip package have to be so bloated and complex? Use `the
 * Care about accessibility
 * [Don't want the extra bloat](https://bundlephobia.com/result?p=the-only-react-tooltip)
 
+Includes definitions for TypeScript.
+
+### Notes on accessibility
+
+Tooltips shouldn't break accessibility, but they often do. This package does it's best to be as accessible as possible:
+* Tooltip appears on hover, on focus events (such as tab), and on touch events.
+* Tooltip can be dismissed by pressing escape, or by touching anywhere on the page.
+* Uses the HTML native title attribute when the tooltip can't be displayed (see [props](#props) below).
+* Uses all relevant ARIA attributes (see [props](#props) below).
+
+The developer should still be responsible! Try not to display anything more than basic text, and don't display tooltips on UI elements that can be interacted with in some other way, like a non-disabled button (mobile users won't have time to read the tooltip before the button action is executed).
+
+See how this component adheres to the [ARIA design pattern for tooltips](https://www.w3.org/TR/wai-aria-practices/#tooltip).
+
 ## Installation
 
 ```sh
