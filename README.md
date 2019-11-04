@@ -51,7 +51,7 @@ import Tooltip from 'the-only-react-tooltip'
 
 Name            | Type                                            | Required? | Default | Notes
 |:---           |:---                                             |:---       |:---     |:--
-`children`      | `ReactNode`                                     | Yes       | -       | The hover target to display the tooltip is added to `children`, and the `DOMRect` of `children ` is used to correctly position the tooltip.
+`children`      | `JSX.Element`                                   | Yes       | -       | The hover target to display the tooltip is added to `children`, and the `DOMRect` of `children ` is used to correctly position the tooltip.
 `body`          | `ReactNode`                                     | Yes       | -       | Contents of the tooltip. It's suggested to use a plain string, but arbitrary `ReactNode`'s are allowed to permit for styled strings and component library string components.
 `position`      | `"top"` \| `"bottom"` \| `"left"` \| `"right"`  | No        | -       | Override the default positioning algorithm and always show the tooltip on one side.
 `title`         | `string`                                        | No        | -       | For accessibility - if the tooltip can't be shown, this will be added to `children` as the `title` attribute and shown instead.
