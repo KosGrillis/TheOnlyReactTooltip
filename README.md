@@ -8,7 +8,11 @@
 
 ---
 
-![the-only-react-tooltip](https://raw.githubusercontent.com/KosGrillis/TheOnlyReactTooltip/master/example.png)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/KosGrillis/TheOnlyReactTooltip/master/example.png" width="100%"/>
+</p>
+
+---
 
 Why does every React tooltip package have to be so bloated and complex? Use `the-only-react-tooltip` when you:
 * Just want a tooltip that acts like a tooltip
