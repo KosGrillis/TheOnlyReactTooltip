@@ -1,14 +1,16 @@
 {
   "name": "the-only-react-tooltip",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "Modern, simple, and accessible tooltip for React.",
   "main": "dist/index.js",
+  "umd:main": "dist/index.js",
   "scripts": {
-    "clean": "rm -rf ./dist",
+    "clean": "rm -rf ./dist && cd ./example && rm -rf ./build",
     "build": "npm run clean && tsc",
     "lint": "tslint -c tslint.json --project tsconfig.json",
     "prepare": "npm run lint && npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npm run clean && webpack-dev-server --config example/webpack.config.js --mode production"
   },
   "repository": {
     "type": "git",
@@ -19,7 +21,9 @@
     "react-component",
     "tooltip",
     "react-tooltip",
-    "popper"
+    "popper",
+    "typescript",
+    "accessible"
   ],
   "author": "Kos Grillis",
   "license": "MIT",
@@ -30,13 +34,17 @@
   "devDependencies": {
     "@types/react": "^16.9.11",
     "@types/react-dom": "^16.9.3",
+    "awesome-typescript-loader": "^5.2.1",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "tslint": "^5.19.0",
     "tslint-config-airbnb": "^5.11.1",
     "tslint-config-prettier": "^1.18.0",
     "tslint-react": "^3.6.0",
-    "typescript": "^3.5.1"
+    "typescript": "^3.5.1",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0"
   },
   "peerDependencies": {
     "react": "16.x",

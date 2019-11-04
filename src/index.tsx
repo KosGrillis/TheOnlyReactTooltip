@@ -12,7 +12,7 @@ const TOOLTIP_ID = 'tooltip'
 export type PositionOptions = 'top' | 'bottom' | 'left' | 'right'
 
 export type Props = {
-  children: React.ReactNode
+  children: JSX.Element
   body: React.ReactNode
   position?: PositionOptions
   title?: string
@@ -36,6 +36,7 @@ const Tooltip = ({
   ariaEssential = false,
 }: Props) => {
   const thisRef = React.useRef<HTMLDivElement>(null)
+  const childrenRef = React.useRef<HTMLElement>(null)
   const [state, setState] = React.useState<State>({
     visible: false,
     transform: {
@@ -46,15 +47,18 @@ const Tooltip = ({
   })
 
   const deriveTooltipPosition = (hoverRect: DOMRect) => {
-    if (thisRef !== null && thisRef.current !== null) {
+    if (thisRef !== null && thisRef.current !== null && childrenRef !== null && childrenRef.current !== null) {
       let x = '0'
       let y = '0'
       let newState: State = { ...state, visible: true }
+
       const ttRect = thisRef.current.getBoundingClientRect() as DOMRect
+      // const hoverRect = childrenRef.current.getBoundingClientRect() as DOMRect
+      const hoverRectStyles: CSSStyleDeclaration = window.getComputedStyle(childrenRef.current)
 
       // Dangerously trust the dev and place it wherever they want it
       if (position) {
-        ({ x, y } = calculatePosition[position](ttRect, hoverRect))
+        ({ x, y } = calculatePosition[position](ttRect, hoverRect, hoverRectStyles))
         newState.position = position
 
       } else { // Safely position it where it fits
@@ -76,16 +80,16 @@ const Tooltip = ({
         const fitsAbove = bAbove
 
         if (fitsBelow) {
-          ({ x, y } = calculatePosition.bottom(ttRect, hoverRect))
+          ({ x, y } = calculatePosition.bottom(ttRect, hoverRect, hoverRectStyles))
           newState.position = 'bottom'
         } else if (fitsLeft) {
-          ({ x, y } = calculatePosition.left(ttRect, hoverRect))
+          ({ x, y } = calculatePosition.left(ttRect, hoverRect, hoverRectStyles))
           newState.position = 'left'
         } else if (fitsRight) {
-          ({ x, y } = calculatePosition.right(ttRect, hoverRect))
+          ({ x, y } = calculatePosition.right(ttRect, hoverRect, hoverRectStyles))
           newState.position = 'right'
         } else if (fitsAbove) {
-          ({ x, y } = calculatePosition.top(ttRect, hoverRect))
+          ({ x, y } = calculatePosition.top(ttRect, hoverRect, hoverRectStyles))
           newState.position = 'top'
         } else {
           x = '0'
@@ -105,7 +109,7 @@ const Tooltip = ({
   ) => {
     if (target !== null && body !== null) {
       const rect = target.getBoundingClientRect()
-      deriveTooltipPosition(rect as DOMRect)
+      deriveTooltipPosition(rect)
       document.addEventListener('keydown', ({ key }: KeyboardEvent) => {
         if (key === 'Escape' || key === 'Esc') {
           hide()
@@ -155,7 +159,7 @@ const Tooltip = ({
 
   return (
     <div>
-      <span
+      <div
         onMouseEnter={onHoverEnter}
         onTouchStart={onTouch}
         onFocus={onFocus}
@@ -163,8 +167,8 @@ const Tooltip = ({
         title={showNativeTitle ? title : undefined}
         {...ariaAttrs}
       >
-        {children}
-      </span>
+        {React.cloneElement(children, { ref: childrenRef })}
+      </div>
       <div
         id={TOOLTIP_ID}
         ref={thisRef}
