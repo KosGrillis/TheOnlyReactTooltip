@@ -21,8 +21,12 @@ See how this component adheres to the [ARIA design pattern for tooltips](https:/
 
 ## Installation
 
+[![NPM](https://nodei.co/npm/the-only-react-tooltip.png?downloadRank=true&stars=true)](https://nodei.co/npm/the-only-react-tooltip/)
+
+Via NPM or Yarn:
 ```sh
 npm install the-only-react-tooltip
+yarn add the-only-react-tooltip
 ```
 
 ## Usage
@@ -47,13 +51,21 @@ Name            | Type                                            | Required? | 
 |:---           |:---                                             |:---       |:---     |:--
 `children`      | `ReactNode`                                     | Yes       | -       | The hover target to display the tooltip is added to `children`, and the `DOMRect` of `children ` is used to correctly position the tooltip.
 `body`          | `ReactNode`                                     | Yes       | -       | Contents of the tooltip. It's suggested to use a plain string, but arbitrary `ReactNode`'s are allowed to permit for styled strings and component library string components.
-`position`      | `"top"` \| `"bottom"` \| `"left"` \| `"right"`  | No        | -       | Override the default positioning algorithm and always show the string on one side.
+`position`      | `"top"` \| `"bottom"` \| `"left"` \| `"right"`  | No        | -       | Override the default positioning algorithm and always show the tooltip on one side.
 `title`         | `string`                                        | No        | -       | For accessibility - if the tooltip can't be shown, this will be added to `children` as the `title` attribute and shown instead.
 `ariaEssential` | `boolean`                                       | No        | `false` | Sets the ARIA importance of the tooltip. `true` -> `aria-labelledBy` (implies essential information), `false` -> `aria-describedBy` (implies additional information). If you're setting this to true, rethink your use of a tooltip!
 
+## Example / Local development
+
+This package ships with a basic example served with `webpack-dev-server`. This can be used to test changes during development:
+
+```sh
+npm run dev
+```
+
 ## License
 
-MIT
+MIT - see `license.md` for full details.
 
 ## Maintainers
 
