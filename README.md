@@ -1,6 +1,14 @@
-# the-only-react-tooltip (you'll ever need)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/KosGrillis/TheOnlyReactTooltip/master/title.png"/>
+</p>
 
-![the-only-react-tooltip](https://raw.githubusercontent.com/KosGrillis/TheOnlyReactTooltip/master/README_example.png)
+<p align="center">
+  Modern and minimal tooltip for React, written with accessibility in mind.
+</p>
+
+---
+
+![the-only-react-tooltip](https://raw.githubusercontent.com/KosGrillis/TheOnlyReactTooltip/master/example.png)
 
 Why does every React tooltip package have to be so bloated and complex? Use `the-only-react-tooltip` when you:
 * Just want a tooltip that acts like a tooltip
