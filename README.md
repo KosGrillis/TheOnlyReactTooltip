@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/KosGrillis/TheOnlyReactTooltip/master/title.png"/>
+  <img src="https://raw.githubusercontent.com/KosGrillis/TheOnlyReactTooltip/master/title.png" width="300px"/>
 </p>
 
 <p align="center">
