@@ -20,7 +20,6 @@
     "allowSyntheticDefaultImports": true,
     "declaration": true,
     "experimentalDecorators": true,
-    "importHelpers": true,
     "lib": ["dom", "dom.iterable", "es5", "es2015.collection", "es2015.iterable"],
     "noFallthroughCasesInSwitch": true,
     "noUnusedParameters": true,
