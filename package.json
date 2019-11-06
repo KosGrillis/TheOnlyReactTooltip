@@ -1,6 +1,6 @@
 {
   "name": "the-only-react-tooltip",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "description": "Modern, simple, and accessible tooltip for React.",
   "main": "dist/index.js",
   "umd:main": "dist/index.js",
@@ -35,6 +35,7 @@
   "devDependencies": {
     "@types/react": "^16.9.11",
     "@types/react-dom": "^16.9.3",
+    "awesome-typescript-loader": "^5.2.1",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "tslib": "^1.10.0",
