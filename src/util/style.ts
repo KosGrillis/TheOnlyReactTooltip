@@ -5,6 +5,7 @@ import { State as PositionState } from '..'
 const tooltipBaseStyles: CSSProperties = {
   position: 'absolute',
   zIndex: 1,
+  cursor: 'initial',
 }
 
 const tooltipArrowBaseStyles: CSSProperties = {

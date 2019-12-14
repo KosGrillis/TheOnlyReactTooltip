@@ -53,7 +53,6 @@ const Tooltip = ({
       let newState: State = { ...state, visible: true }
 
       const ttRect = thisRef.current.getBoundingClientRect() as DOMRect
-      // const hoverRect = childrenRef.current.getBoundingClientRect() as DOMRect
       const hoverRectStyles: CSSStyleDeclaration = window.getComputedStyle(childrenRef.current)
 
       // Dangerously trust the dev and place it wherever they want it
@@ -158,17 +157,16 @@ const Tooltip = ({
   }
 
   return (
-    <div>
-      <div
-        onMouseEnter={onHoverEnter}
-        onTouchStart={onTouch}
-        onFocus={onFocus}
-        onMouseLeave={onHoverLeave}
-        title={showNativeTitle ? title : undefined}
-        {...ariaAttrs}
-      >
-        {React.cloneElement(children, { ref: childrenRef })}
-      </div>
+    <div
+      style={{ display: "inline-block" }}
+      onMouseLeave={onHoverLeave}
+      onMouseEnter={onHoverEnter}
+      onTouchStart={onTouch}
+      onFocus={onFocus}
+      title={showNativeTitle ? title : undefined}
+      {...ariaAttrs}
+    >
+      {React.cloneElement(children, { ref: childrenRef })}
       <div
         id={TOOLTIP_ID}
         ref={thisRef}
