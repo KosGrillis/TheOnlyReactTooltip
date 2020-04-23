@@ -1,6 +1,6 @@
 {
   "name": "the-only-react-tooltip",
-  "version": "1.2.9",
+  "version": "1.3.0",
   "description": "Modern, simple, and accessible tooltip for React.",
   "main": "dist/index.js",
   "umd:main": "dist/index.js",
