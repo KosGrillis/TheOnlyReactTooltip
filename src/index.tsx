@@ -12,7 +12,7 @@ const TOOLTIP_ID = 'tooltip'
 export type PositionOptions = 'top' | 'bottom' | 'left' | 'right'
 
 export type Props = {
-  children: JSX.Element
+  children: JSX.Element | string
   body: React.ReactNode
   position?: PositionOptions
   title?: string
@@ -22,8 +22,8 @@ export type Props = {
 export type State = {
   visible: boolean
   transform: {
-    x: string
-    y: string
+    top: number
+    left: number
   }
   position: PositionOptions | 'none'
 }
@@ -35,38 +35,36 @@ const Tooltip = ({
   title,
   ariaEssential = false,
 }: Props) => {
+
   const thisRef = React.useRef<HTMLDivElement>(null)
   const childrenRef = React.useRef<HTMLElement>(null)
+
   const [state, setState] = React.useState<State>({
     visible: false,
-    transform: {
-      x: '0',
-      y: '0',
-    },
+    transform: { top: 0, left: 0 },
     position: 'none',
   })
 
   const deriveTooltipPosition = (hoverRect: DOMRect) => {
-    if (thisRef !== null && thisRef.current !== null && childrenRef !== null && childrenRef.current !== null) {
-      let x = '0'
-      let y = '0'
-      let newState: State = { ...state, visible: true }
+    if (thisRef.current !== null) {
+      let top = 0
+      let left = 0
+      const newState: State = { ...state, visible: false, position: 'none' }
 
       const ttRect = thisRef.current.getBoundingClientRect() as DOMRect
-      const hoverRectStyles: CSSStyleDeclaration = window.getComputedStyle(childrenRef.current)
+      const hoverRectStyles: CSSStyleDeclaration = window.getComputedStyle(childrenRef.current || thisRef.current)
 
-      // Dangerously trust the dev and place it wherever they want it
-      if (position) {
-        ({ x, y } = calculatePosition[position](ttRect, hoverRect, hoverRectStyles))
+      if (position) { // Dangerously trust the dev and place it wherever they want it
+        ({ top, left } = calculatePosition[position](ttRect, hoverRect, hoverRectStyles))
         newState.position = position
-
+        newState.visible = true
       } else { // Safely position it where it fits
         const docWidth = document.documentElement.clientWidth
         const docHeight = document.documentElement.clientHeight
 
-        const rx = hoverRect.x + hoverRect.width // most right x
-        const lx = hoverRect.x // most left x
-        const ty = hoverRect.y // most top y
+        const rx = hoverRect.x + hoverRect.width  // most right x
+        const lx = hoverRect.x                    // most left x
+        const ty = hoverRect.y                    // most top y
         const by = hoverRect.y + hoverRect.height // most bottom y
 
         const bBelow = by + ttRect.height <= docHeight
@@ -79,27 +77,25 @@ const Tooltip = ({
         const fitsAbove = bAbove
 
         if (fitsBelow) {
-          ({ x, y } = calculatePosition.bottom(ttRect, hoverRect, hoverRectStyles))
+          ({ top, left } = calculatePosition.bottom(ttRect, hoverRect, hoverRectStyles))
           newState.position = 'bottom'
+          newState.visible = true
         } else if (fitsLeft) {
-          ({ x, y } = calculatePosition.left(ttRect, hoverRect, hoverRectStyles))
+          ({ top, left } = calculatePosition.left(ttRect, hoverRect, hoverRectStyles))
           newState.position = 'left'
+          newState.visible = true
         } else if (fitsRight) {
-          ({ x, y } = calculatePosition.right(ttRect, hoverRect, hoverRectStyles))
+          ({ top, left } = calculatePosition.right(ttRect, hoverRect, hoverRectStyles))
           newState.position = 'right'
+          newState.visible = true
         } else if (fitsAbove) {
-          ({ x, y } = calculatePosition.top(ttRect, hoverRect, hoverRectStyles))
+          ({ top, left } = calculatePosition.top(ttRect, hoverRect, hoverRectStyles))
           newState.position = 'top'
-        } else {
-          x = '0'
-          y = '0'
-          newState.position = 'none'
-          newState.visible = false
+          newState.visible = true
         }
       }
 
-      newState = { ...newState, transform: { x, y } }
-      setState(newState)
+      setState({ ...newState, transform: { top, left } })
     }
   }
 
@@ -117,15 +113,16 @@ const Tooltip = ({
     }
   }
 
-  const onHoverEnter = (e: React.MouseEvent<HTMLSpanElement>) =>
+  const onHoverEnter = (e: React.MouseEvent<HTMLDivElement>) => {
     handleEventTarget(e.currentTarget)
+  }
 
-  const onHoverLeave = (_: React.MouseEvent<HTMLSpanElement>) => hide()
+  const onHoverLeave = (_: React.MouseEvent<HTMLDivElement>) => hide()
 
   const hide = () => {
     setState({
       visible: false,
-      transform: { x: '0', y: '0' },
+      transform: { top: 0, left: 0 },
       position: 'none',
     })
     document.removeEventListener('touchstart', hide)
@@ -134,27 +131,39 @@ const Tooltip = ({
   }
 
   // For a11y, show the tooltip on touch as well
-  const onTouch = (e: React.TouchEvent<HTMLSpanElement>) => {
+  const onTouch = (e: React.TouchEvent<HTMLDivElement>) => {
     handleEventTarget(e.currentTarget)
     document.addEventListener('touchstart', hide)
   }
 
   // For a11y, also show the tooltip on focus
-  const onFocus = (e: React.FocusEvent<HTMLSpanElement>) => {
+  const onFocus = (e: React.FocusEvent<HTMLDivElement>) => {
     handleEventTarget(e.currentTarget)
     document.addEventListener('focusout', hide)
   }
 
-  // For a11y, show the specified native title if the component
-  // can't render the tooltip.
-  const showNativeTitle = body === null || state.position === 'none'
+  // For a11y, show the specified native title if the component can't render the tooltip.
+  const showNativeTitle = React.useMemo(() => (
+    body === null || state.position === 'none'
+  ), [body, state.position])
 
-  const ariaAttrs: React.HTMLAttributes<HTMLSpanElement> = {}
-  if (ariaEssential) {
-    ariaAttrs['aria-labelledby'] = TOOLTIP_ID
-  } else {
-    ariaAttrs['aria-describedby'] = TOOLTIP_ID
-  }
+  const ariaAttrs: React.HTMLAttributes<HTMLDivElement> = React.useMemo(() => {
+    const obj = {}
+    if (ariaEssential) {
+      obj['aria-labelledby'] = TOOLTIP_ID
+    } else {
+      obj['aria-describedby'] = TOOLTIP_ID
+    }
+    return obj
+  }, [ariaEssential])
+
+  const safeChildren = React.useMemo(() => {
+    if (typeof children === 'string') {
+      return children
+    }
+
+    return React.cloneElement(children as JSX.Element, { ref: childrenRef })
+  }, [children])
 
   return (
     <div
@@ -166,7 +175,7 @@ const Tooltip = ({
       title={showNativeTitle ? title : undefined}
       {...ariaAttrs}
     >
-      {React.cloneElement(children, { ref: childrenRef })}
+      {safeChildren}
       <div
         id={TOOLTIP_ID}
         ref={thisRef}

@@ -29,7 +29,8 @@ const tooltipBodyBaseStyles: CSSProperties = {
 const deriveBaseStyles = (state: PositionState): CSSProperties => {
   const style: CSSProperties = {
     visibility: state.visible ? 'visible' : 'hidden',
-    transform: `translate(${state.transform.x}px,${state.transform.y}px)`,
+    top: `${state.transform.top}px`,
+    left: `${state.transform.left}px`,
   }
 
   if (state.position === 'right') {

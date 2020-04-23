@@ -5,8 +5,6 @@ import Tooltip from '../src/index'
 
 const styles: { [key: string]: CSSProperties } = {
   page: {
-    width: '100vw',
-    height: '100vh',
     display: 'flex',
     justifyContent: 'center',
     background: 'linear-gradient(155deg, rgba(2,0,36,1) 0%, rgba(8,8,106,1) 0%, rgba(9,9,121,1) 0%, rgba(6,6,89,1) 0%, rgba(5,60,139,1) 25%, rgba(4,118,193,1) 50%, rgba(2,169,226,1) 75%, rgba(0,212,255,1) 100%)',
@@ -65,17 +63,51 @@ const Example = () => (
           <h2 style={styles.h2}>(you'll ever need)</h2>
         </div>
         <div style={styles.content}>
+          <Tooltip body={<p style={styles.p}>Hello world!</p>} position={"left"}>
+            <button style={styles.button}>Hover me!</button>
+          </Tooltip>
           <Tooltip body={<p style={styles.p}>Hello world!</p>} position={"bottom"}>
             <button style={styles.button}>Hover me!</button>
           </Tooltip>
-          <Tooltip body={<p style={styles.p}>Hello world!</p>} position={"left"}>
+          <Tooltip body={<p style={styles.p}>Hello world!</p>} position={"top"}>
             <button style={styles.button}>Hover me!</button>
           </Tooltip>
           <Tooltip body={<p style={styles.p}>Hello world!</p>} position={"right"}>
             <button style={styles.button}>Hover me!</button>
           </Tooltip>
+        </div>
+        <div>
+          <Tooltip body={<p style={styles.p}>Hello world!</p>} position={"left"}>
+            <button >Hover me!</button>
+          </Tooltip>
+          <Tooltip body={<p style={styles.p}>Hello world!</p>} position={"bottom"}>
+            <button >Hover me!</button>
+          </Tooltip>
           <Tooltip body={<p style={styles.p}>Hello world!</p>} position={"top"}>
-            <button style={styles.button}>Hover me!</button>
+            <button >Hover me!</button>
+          </Tooltip>
+          <Tooltip body={<p style={styles.p}>Hello world!</p>} position={"right"}>
+            <button >Hover me!</button>
+          </Tooltip>
+        </div>
+        <div style={{ margin: '2.5rem' }}>
+          <Tooltip body={"Hello world!"} position={"left"}>
+            This is a tooltip around some text
+          </Tooltip>
+        </div>
+        <div style={{ margin: '2.5rem' }}>
+          <Tooltip body={"Hello world!"} position={"bottom"}>
+            <React.Fragment>This is a tooltip around some text</React.Fragment>
+          </Tooltip>
+        </div>
+        <div style={{ margin: '2.5rem' }}>
+          <Tooltip body={"Hello world!"} position={"top"}>
+            <p>This is a tooltip around some text</p>
+          </Tooltip>
+        </div>
+        <div style={{ margin: '2.5rem' }}>
+          <Tooltip body={"Hello world!"} position={"right"}>
+            <p>This is a tooltip around some text</p>
           </Tooltip>
         </div>
       </div>

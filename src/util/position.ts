@@ -5,23 +5,15 @@ const calculateTop = (
   hoverRect: DOMRect,
   hoverRectComputedStyles: CSSStyleDeclaration,
 ): PositionState["transform"] => {
-  let x = '0'
-  let y = '0'
 
-  let marginTop = 0
+  let marginOffset = 0
   if (hoverRectComputedStyles.marginTop) {
-    marginTop = parseFloat(hoverRectComputedStyles.marginTop)
+    marginOffset = parseFloat(hoverRectComputedStyles.marginTop)
   }
 
-  y = `-${hoverRect.height + ttRect.height - marginTop}`
-
-  if (ttRect.width > hoverRect.width) {
-    x = `-${(ttRect.width - hoverRect.width) / 2}`
-  } else {
-    x = `${(hoverRect.width - ttRect.width) / 2}`
-  }
-
-  return { x, y }
+  const top = hoverRect.top + window.pageYOffset - ttRect.height + marginOffset
+  const left = hoverRect.left - ttRect.width / 2 + hoverRect.width / 2 + window.pageXOffset
+  return { top, left }
 }
 
 const calculateBottom = (
@@ -29,23 +21,15 @@ const calculateBottom = (
   hoverRect: DOMRect,
   hoverRectComputedStyles: CSSStyleDeclaration,
 ): PositionState["transform"] => {
-  let x = '0'
-  let y = '0'
 
-  let marginBottom = 0
+  let marginOffset = 0
   if (hoverRectComputedStyles.marginBottom) {
-    marginBottom = parseFloat(hoverRectComputedStyles.marginBottom)
+    marginOffset = parseFloat(hoverRectComputedStyles.marginBottom)
   }
 
-  if (ttRect.width > hoverRect.width) {
-    x = `-${(ttRect.width - hoverRect.width) / 2}`
-    y = `-${marginBottom}`
-  } else {
-    x = `${(hoverRect.width - ttRect.width) / 2}`
-    y = `-${marginBottom}`
-  }
-
-  return { x, y }
+  const top = hoverRect.top + hoverRect.height + window.pageYOffset - marginOffset
+  const left = hoverRect.left - ttRect.width / 2 + hoverRect.width / 2 + window.pageXOffset
+  return { top, left }
 }
 
 const calculateRight = (
@@ -54,14 +38,14 @@ const calculateRight = (
   hoverRectComputedStyles: CSSStyleDeclaration,
 ): PositionState["transform"] => {
 
-  let marginRight = 0
+  let marginOffset = 0
   if (hoverRectComputedStyles.marginRight) {
-    marginRight = parseFloat(hoverRectComputedStyles.marginRight)
+    marginOffset = parseFloat(hoverRectComputedStyles.marginRight)
   }
 
-  const x = `${hoverRect.width - marginRight}`
-  const y = `-${(hoverRect.height / 2 + ttRect.height / 2)}`
-  return { x, y }
+  const top = hoverRect.top - ttRect.height / 2 + hoverRect.height / 2 + window.pageYOffset
+  const left = hoverRect.left + hoverRect.width - marginOffset + window.pageXOffset
+  return { top, left }
 }
 
 const calculateLeft = (
@@ -70,16 +54,16 @@ const calculateLeft = (
   hoverRectComputedStyles: CSSStyleDeclaration,
 ): PositionState["transform"] => {
 
-  let marginLeft = 0
+  let marginOffset = 0
   if (hoverRectComputedStyles.marginLeft) {
-    marginLeft = parseFloat(hoverRectComputedStyles.marginLeft)
+    marginOffset = parseFloat(hoverRectComputedStyles.marginLeft)
   }
 
   // FIXME: Why does only the left position need the width of the arrow
   // hardcoded in?
-  const x = `-${ttRect.width - marginLeft + 5}`
-  const y = `-${(hoverRect.height / 2 + ttRect.height / 2)}`
-  return { x, y }
+  const top = hoverRect.top - ttRect.height / 2 + hoverRect.height / 2 + window.pageYOffset
+  const left = hoverRect.left - ttRect.width + marginOffset + window.pageXOffset - 5 // 5 for arrow width
+  return { top, left }
 }
 
 const calculatePosition = {
