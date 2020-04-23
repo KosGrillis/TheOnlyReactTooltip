@@ -32,6 +32,10 @@
     "url": "https://github.com/KosGrillis/TheOnlyReactTooltip/issues"
   },
   "homepage": "https://github.com/KosGrillis/TheOnlyReactTooltip#readme",
+  "dependencies": {
+    "@emotion/core": "^10.0.27",
+    "@emotion/styled": "^10.0.27"
+  },
   "devDependencies": {
     "@types/react": "^16.9.11",
     "@types/react-dom": "^16.9.3",
