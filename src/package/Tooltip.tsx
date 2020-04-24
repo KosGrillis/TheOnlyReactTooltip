@@ -3,7 +3,7 @@ import { jsx } from '@emotion/core'
 import css from '@emotion/css'
 import React from 'react'
 
-import { calculatePosition } from './helpers'
+import { calculatePosition, isOrHasFixedParent } from './helpers'
 import { TooltipArrow, TooltipBase, TooltipBody } from './Tooltip.style'
 import { TooltipProps, TooltipState } from './types'
 
@@ -25,7 +25,7 @@ const Tooltip = ({
     position: 'none',
   })
 
-  const deriveTooltipPosition = (hoverRect: DOMRect) => {
+  const deriveTooltipPosition = (hoverRect: DOMRect, hoverRectFixedParentRect: DOMRect) => {
     if (thisRef.current !== null) {
       let top = 0
       let left = 0
@@ -35,7 +35,7 @@ const Tooltip = ({
       const hoverRectStyles: CSSStyleDeclaration = window.getComputedStyle(childrenRef.current || thisRef.current)
 
       if (position) { // Dangerously trust the dev and place it wherever they want it
-        ({ top, left } = calculatePosition[position](ttRect, hoverRect, hoverRectStyles))
+        ({ top, left } = calculatePosition[position](ttRect, hoverRect, hoverRectStyles, hoverRectFixedParentRect))
         newState.position = position
         newState.visible = true
       } else { // Safely position it where it fits
@@ -57,19 +57,19 @@ const Tooltip = ({
         const fitsAbove = bAbove
 
         if (fitsBelow) {
-          ({ top, left } = calculatePosition.bottom(ttRect, hoverRect, hoverRectStyles))
+          ({ top, left } = calculatePosition.bottom(ttRect, hoverRect, hoverRectStyles, hoverRectFixedParentRect))
           newState.position = 'bottom'
           newState.visible = true
         } else if (fitsLeft) {
-          ({ top, left } = calculatePosition.left(ttRect, hoverRect, hoverRectStyles))
+          ({ top, left } = calculatePosition.left(ttRect, hoverRect, hoverRectStyles, hoverRectFixedParentRect))
           newState.position = 'left'
           newState.visible = true
         } else if (fitsRight) {
-          ({ top, left } = calculatePosition.right(ttRect, hoverRect, hoverRectStyles))
+          ({ top, left } = calculatePosition.right(ttRect, hoverRect, hoverRectStyles, hoverRectFixedParentRect))
           newState.position = 'right'
           newState.visible = true
         } else if (fitsAbove) {
-          ({ top, left } = calculatePosition.top(ttRect, hoverRect, hoverRectStyles))
+          ({ top, left } = calculatePosition.top(ttRect, hoverRect, hoverRectStyles, hoverRectFixedParentRect))
           newState.position = 'top'
           newState.visible = true
         }
@@ -84,7 +84,7 @@ const Tooltip = ({
   ) => {
     if (target !== null && body !== null) {
       const rect = target.getBoundingClientRect()
-      deriveTooltipPosition(rect)
+      deriveTooltipPosition(rect, isOrHasFixedParent(target))
       document.addEventListener('keydown', ({ key }: KeyboardEvent) => {
         if (key === 'Escape' || key === 'Esc') {
           hide()
