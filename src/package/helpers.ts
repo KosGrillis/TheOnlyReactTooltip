@@ -1,10 +1,10 @@
 import { TooltipState } from './types'
 
-export const isOrHasFixedParent = (target: React.BaseSyntheticEvent['currentTarget']) => {
+export const hasFixedAncestor = (target: React.BaseSyntheticEvent['currentTarget']) => {
   let currTarget = target
 
   do {
-    if (getComputedStyle(target).position === 'fixed') return target.getBoundingClientRect()
+    if (getComputedStyle(currTarget).position === 'fixed') return currTarget.getBoundingClientRect()
   } while (currTarget = currTarget.offsetParent)
 
   return undefined

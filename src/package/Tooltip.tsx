@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { calculatePosition, isOrHasFixedParent } from './helpers'
+import { calculatePosition, hasFixedAncestor } from './helpers'
 import { TooltipArrow, TooltipBase, TooltipBody } from './Tooltip.components'
 import { TooltipProps, TooltipState } from './types'
 
@@ -81,7 +81,7 @@ const Tooltip = ({
   ) => {
     if (target !== null && body !== null) {
       const rect = target.getBoundingClientRect()
-      deriveTooltipPosition(rect, isOrHasFixedParent(target))
+      deriveTooltipPosition(rect, hasFixedAncestor(target))
       document.addEventListener('keydown', ({ key }: KeyboardEvent) => {
         if (key === 'Escape' || key === 'Esc') {
           hide()
