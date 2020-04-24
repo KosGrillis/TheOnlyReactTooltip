@@ -1,10 +1,7 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import css from '@emotion/css'
 import React from 'react'
 
 import { calculatePosition, isOrHasFixedParent } from './helpers'
-import { TooltipArrow, TooltipBase, TooltipBody } from './Tooltip.style'
+import { TooltipArrow, TooltipBase, TooltipBody } from './Tooltip.components'
 import { TooltipProps, TooltipState } from './types'
 
 const Tooltip = ({
@@ -153,9 +150,7 @@ const Tooltip = ({
       onMouseEnter={onHoverEnter}
       onTouchStart={onTouch}
       onFocus={onFocus}
-      css={css`
-        display: inline-block;
-      `}
+      style={{ display: 'inline-block' }}
     >
       {safeChildren}
       <TooltipBase

@@ -11,7 +11,7 @@
     "prepare": "npm run lint && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npm run clean && webpack-dev-server --config example/webpack.config.js --mode production",
-    "minify": "uglifyjs --compress --mangle --source-map --output dist/index.js dist/index.js && uglifyjs --compress --mangle --source-map --output dist/package/helpers.js dist/package/helpers.js && uglifyjs --compress --mangle --source-map --output dist/package/Tooltip.style.js dist/package/Tooltip.style.js"
+    "minify": "uglifyjs --compress --mangle --source-map --output dist/index.js dist/index.js && uglifyjs --compress --mangle --source-map --output dist/package/helpers.js dist/package/helpers.js && uglifyjs --compress --mangle --source-map --output dist/package/Tooltip.components.js dist/package/Tooltip.components.js"
   },
   "repository": {
     "type": "git",
@@ -32,10 +32,6 @@
     "url": "https://github.com/KosGrillis/TheOnlyReactTooltip/issues"
   },
   "homepage": "https://github.com/KosGrillis/TheOnlyReactTooltip#readme",
-  "dependencies": {
-    "@emotion/core": "^10.0.27",
-    "@emotion/styled": "^10.0.27"
-  },
   "devDependencies": {
     "@types/react": "^16.9.11",
     "@types/react-dom": "^16.9.3",
