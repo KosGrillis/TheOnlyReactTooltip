@@ -59,15 +59,21 @@ import Tooltip from 'the-only-react-tooltip'
 </Tooltip>
 ```
 
+2 . The component may be extended by importing its props and state:
+```js
+import Tooltip, { TooltipProps, TooltipState } from 'the-only-react-tooltip'
+```
+
 ## Props
 
 Name            | Type                                            | Required? | Default | Notes
 |:---           |:---                                             |:---       |:---     |:--
-`children`      | `JSX.Element | string`                          | Yes       | -       | The hover target to display the tooltip is added to `children`, and the `DOMRect` of `children ` is used to correctly position the tooltip.
+`children`      | `JSX.Element` or `string`                       | Yes       | -       | The hover target to display the tooltip is added to `children`, and the `DOMRect` of `children ` is used to correctly position the tooltip.
 `body`          | `ReactNode`                                     | Yes       | -       | Contents of the tooltip. It's suggested to use a plain string, but arbitrary `ReactNode`'s are allowed to permit for styled strings and component library string components.
 `position`      | `"top"` \| `"bottom"` \| `"left"` \| `"right"`  | No        | -       | Override the default positioning algorithm and always show the tooltip on one side.
 `title`         | `string`                                        | No        | -       | For accessibility - if the tooltip can't be shown, this will be added to `children` as the `title` attribute and shown instead.
 `ariaEssential` | `boolean`                                       | No        | `false` | Sets the ARIA importance of the tooltip. `true` -> `aria-labelledBy` (implies essential information), `false` -> `aria-describedBy` (implies additional information). If you're setting this to true, rethink your use of a tooltip!
+`tooltipId` | `string`                                       | No        | `tooltip` | Sets the ID of the tooltip that will be used as the id of the base HTML element, as well as the value of `aria-describedBy` and `aria-labelledBy`. Make sure you set this to a unique value if you're using more that one tooltip on your page.
 
 ## Example / Local development
 
