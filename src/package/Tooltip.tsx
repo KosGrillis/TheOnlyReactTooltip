@@ -143,7 +143,7 @@ const Tooltip = ({
   }, [children])
 
   return (
-    <div
+    <span
       {...ariaAttrs}
       title={showNativeTitle ? title : undefined}
       onMouseLeave={onHoverLeave}
@@ -163,7 +163,7 @@ const Tooltip = ({
         <TooltipArrow position={state.position}/>
         <TooltipBody>{body}</TooltipBody>
       </TooltipBase>
-    </div>
+    </span>
   )
 }
 

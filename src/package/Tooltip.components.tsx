@@ -39,9 +39,9 @@ const TooltipBase = React.forwardRef<HTMLDivElement, TooltipBaseProps>(({
   }, [position, transform, visible])
 
   return (
-    <div ref={ref} id={id} style={style} role={role}>
+    <span ref={ref} id={id} style={style} role={role}>
       {children}
-    </div>
+    </span>
   )
 })
 
@@ -104,7 +104,7 @@ const TooltipArrow: React.FC<TooltipArrowProps> = ({
   return styles
   }, [position])
 
-  return <div style={style}/>
+  return <span style={style} />
 }
 
 const TooltipBody: React.FC<{}> = ({
@@ -119,13 +119,14 @@ const TooltipBody: React.FC<{}> = ({
       textAlign: 'center',
       backgroundColor: '#000',
       borderRadius: '4px',
+      display: 'block',
     }
   }, [])
 
   return (
-    <div style={style}>
+    <span style={style}>
       {children}
-    </div>
+    </span>
   )
 }
 
